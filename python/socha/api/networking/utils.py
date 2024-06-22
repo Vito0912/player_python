@@ -113,7 +113,7 @@ def message_to_state(message: Room) -> _socha.GameState:
 
     return _socha.GameState(
         board=map_board(state.board),
-        player_one=create_hare(state.sc_plugin2025_hare[0]),
-        player_two=create_hare(state.sc_plugin2025_hare[1]),
+        player_one=create_hare(state.hare[0]),  # Changed this line to represent the new hare value. See protocol.py
+        player_two=create_hare(state.hare[1]),  # Changed this line
         turn=state.turn,
     )

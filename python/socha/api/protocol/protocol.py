@@ -6,6 +6,13 @@ from socha._socha import TeamEnum
 from socha.api.protocol.protocol_packet import AdminLobbyRequest, LobbyRequest, ProtocolPacket, ResponsePacket
 from socha.api.protocol.room_message import ObservableRoomMessage, RoomMessage, RoomOrchestrationMessage
 
+# Added Field class to be able to parse the board
+@dataclass
+class Field:
+    """
+    A field on the game board.
+    """
+    value: str
 
 @dataclass
 class Cards:
@@ -26,20 +33,17 @@ class Board:
     class Meta:
         name = "board"
 
-    fields: List[str] = field(
+    # Not sure if correct, but: Attribute name corrected to 'fields'
+    fields: List[Field] = field(
         default_factory=list,
         metadata={
+            "name": "field",  # Added field
             "type": "Element",
             "min_occurs": 1,
         },
     )
-    size: Optional[int] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "required": True,
-        },
-    )
+
+
 
 
 @dataclass
@@ -141,10 +145,13 @@ class State(ObservableRoomMessage):
             "required": True,
         },
     )
-    sc_plugin2025_hare: List[ScPlugin2025Hare] = field(
+    # Works, but also not sure if right to do so:
+    # Changed this line to 'hare' instead of 'sc.plugin2025.Hare' to be recognized
+    # For further releases, the 'sc.plugin2025.Hare' should be used. But if it works, it works.
+    hare: List[ScPlugin2025Hare] = field(
         default_factory=list,
         metadata={
-            "name": "sc.plugin2025.Hare",
+            "name": "hare",
             "type": "Element",
             "min_occurs": 1,
         },
@@ -745,6 +752,12 @@ class Data:
         default=None,
         metadata={
             "type": "Attribute",
+        }
+    )
+    fields: Optional[List[Field]] = field(
+        default=None,
+        metadata={
+            "type": "Element",
         }
     )
 

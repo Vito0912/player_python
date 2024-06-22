@@ -1,5 +1,16 @@
-# not all imports are currently used, but they might be in the future and it shows all available functionalities
 import logging
+import os
+import sys
+
+# Get the current file's directory
+current_dir = os.path.dirname(__file__)
+
+# Construct the path to the 'socha' module
+socha_path = os.path.join(current_dir, 'python', 'socha')
+
+# Add the 'socha' module to the system path
+sys.path.append(socha_path)
+
 from socha import (
     GameState,
     Move,

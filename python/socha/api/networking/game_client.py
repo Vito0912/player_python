@@ -31,7 +31,7 @@ from socha.api.protocol.protocol import (
     Room,
     Slot,
     State,
-    Step,
+    Step
 )
 
 from socha.api.networking.utils import handle_move, message_to_state
